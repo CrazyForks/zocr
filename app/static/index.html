@@ -75,8 +75,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                           d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                 </svg>
-                <p class="text-gray-500 text-sm"><span class="text-primary font-medium">Click to upload</span> or drag & drop</p>
-                <p class="text-gray-400 text-xs mt-1">JPG, PNG, BMP, WebP &middot; Max 10MB</p>
+                <p class="text-gray-500 text-sm"><span class="text-primary font-medium">Click to upload</span>, drag & drop, or paste</p>
+                <p class="text-gray-400 text-xs mt-1">JPG, PNG, BMP, WebP &middot; Max 10MB &middot; Ctrl+V / Cmd+V</p>
             </div>
             <div id="fileInfo" class="hidden">
                 <div class="flex items-center justify-center gap-3">
@@ -220,6 +220,14 @@
             e.preventDefault();
             dropZone.classList.remove('drop-zone-active');
             if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+        });
+
+        // Paste event - Ctrl+V / Cmd+V
+        document.addEventListener('paste', (e) => {
+            const files = e.clipboardData?.files;
+            if (files && files.length > 0 && files[0].type.startsWith('image/')) {
+                handleFile(files[0]);
+            }
         });
 
         // Handle selected file
