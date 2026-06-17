@@ -52,14 +52,3 @@ app.add_middleware(
 
 # 挂载路由
 app.include_router(my_router)
-
-
-# 首页
-@app.get("/")
-async def index():
-    return {
-        "name": "ZOCR",
-        "version": VERSION,
-        "description": "OCR API service based on PP-OCRv6",
-        "docs": "/docs"
-    }
