@@ -27,7 +27,7 @@ def get_ocr_instance() -> RapidOCR:
 
         det_model_path = str(model_dir / f"ppocrv6_{model_version}" / f"ppocrv6_{model_version}_det.onnx")
         rec_model_path = str(model_dir / f"ppocrv6_{model_version}" / f"ppocrv6_{model_version}_rec.onnx")
-        rec_keys_path = str(model_dir / "ppocrv6_keys.txt")
+        rec_keys_path = str(model_dir / f"ppocrv6_{model_version}_keys.txt")
 
         logger.info(f"Initializing RapidOCR with model version: {model_version}")
         logger.info(f"Det model: {det_model_path}")
