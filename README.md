@@ -1,94 +1,129 @@
+[English](README.md) | [中文](README_zh.md)
+
 # ZOCR
 
-基于百度PP-OCRv6模型的在线OCR识别API服务。
+Online OCR recognition API service based on Baidu PP-OCRv6 model.
 
-## 功能特性
+![CleanShot 2026-06-18 at 08.36.40@2x.png](https://img.rss.ink/2026/06/18/PyUM5Mjm.png)
 
-- 支持Bearer Token认证
-- 支持Docker容器化部署
-- 支持常见图片格式：jpg/jpeg/png/bmp/webp
-- 图片大小限制：10MB
-- 返回JSON格式识别结果
+## Features
 
-## 快速开始
+- Supports Bearer Token authentication
+- Supports Docker containerized deployment
+- Supports common image formats: jpg/jpeg/png/bmp/webp
+- Image size limit: 10MB
+- Returns JSON format recognition results
 
-### Docker部署（推荐）
+## Quick Start
 
-```bash
-# 构建镜像
-docker-compose build
+### Docker Compose Deployment (Recommended)
 
-# 启动服务
-docker-compose up -d
+Create a `compose.yaml` file:
+
+```yaml
+services:
+  zocr:
+    image: helloz/zocr
+    container_name: zocr
+    ports:
+      - "5080:5080"
+    environment:
+      - TOKEN=your_token_here
+    restart: always
 ```
 
-### 本地开发
+Optional environment variables:
+- `WORKERS`: Number of uvicorn worker processes, default 1
+- `OCR_MODEL_VERSION`: OCR model version (tiny/small), default small
+- `MAX_FILE_SIZE`: Maximum file size (bytes), default 10485760
+
+Start the service:
 
 ```bash
-# 安装依赖
+# Start the service
+docker compose up -d
+```
+
+### Local Development
+
+Environment requirements: Python >= 3.11
+
+```bash
+# Install dependencies
 pip install -r requirements.txt
 
-# 启动服务（开发模式）
+# Start the service (development mode)
 bash run.sh dev
 ```
 
-## 配置说明
+## Configuration
 
-通过环境变量配置：
+Configure via environment variables. If TOKEN is empty, authentication is skipped:
 
-| 变量名 | 说明 | 默认值 |
-|--------|------|--------|
-| TOKEN | 认证密钥 | 空（不认证） |
-| WORKERS | uvicorn工作进程数 | 1 |
-| OCR_LANG | OCR语言（ch/en等） | ch |
-| MAX_FILE_SIZE | 最大文件大小(bytes) | 10485760 (10MB) |
+| Variable | Description | Default |
+|----------|-------------|---------|
+| TOKEN | Authentication key | Empty (no auth) |
+| WORKERS | Number of uvicorn worker processes | 1 |
+| OCR_MODEL_VERSION | OCR model version (tiny/small) | small |
+| MAX_FILE_SIZE | Maximum file size (bytes) | 10485760 (10MB) |
 
-## API接口
+## API Endpoints
 
-### OCR识别
+### OCR Recognition (Upload File)
 
 ```
-POST /api/ocr
+POST /api/ocr/upload
 Content-Type: multipart/form-data
 Authorization: Bearer <token>
 ```
 
-**请求参数**：
-- `file`: 图片文件
+**Request Parameters**:
+- `file`: Image file
 
-**响应示例**：
+### OCR Recognition (Via URL)
+
+```
+GET /api/ocr/fetch?url=<image_url>
+Authorization: Bearer <token>
+```
+
+**Request Parameters**:
+- `url`: Image URL address
+
+### Response Example
+
 ```json
 {
     "code": 200,
     "msg": "success",
     "data": {
-        "texts": ["识别文本1", "识别文本2"],
+        "texts": ["Recognized text 1", "Recognized text 2"],
         "scores": [0.99, 0.95],
         "boxes": [[[0,0], [100,0], [100,30], [0,30]], ...],
-        "full_text": "识别文本1\n识别文本2"
+        "full_text": "Recognized text 1\nRecognized text 2"
     }
 }
 ```
 
-### 健康检查
+### Health Check
 
 ```
 GET /api/health
 ```
 
-## 调用示例
+## Usage Examples
 
 ```bash
-# 使用curl调用（上传文件）
-curl -X POST http://localhost:6080/api/ocr/upload \
+# Using curl (upload file)
+curl -X POST http://localhost:5080/api/ocr/upload \
   -H "Authorization: Bearer your_token" \
   -F "file=@test.jpg"
 
-# 使用curl调用（通过URL）
-curl "http://localhost:6080/api/ocr/fetch?url=https://example.com/image.jpg" \
+# Using curl (via URL)
+curl "http://localhost:5080/api/ocr/fetch?url=https://example.com/image.jpg" \
   -H "Authorization: Bearer your_token"
 ```
 
-## 端口
+## Contact
 
-默认服务端口：6080
+- X: [@xiaozblog](https://x.com/xiaozblog)
