@@ -25,13 +25,6 @@ bash run.sh
 docker-compose build && docker-compose up -d
 ```
 
-## 端口映射陷阱
-
-- Docker对外端口：`6080`
-- 容器内uvicorn端口：`5080`
-- 映射关系：`6080:5080`
-- 调试时注意：curl测试用6080，日志显示5080
-
 ## 模型配置
 
 两个变体，通过`ZOCR_MODEL_VERSION`环境变量切换：
