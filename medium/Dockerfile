@@ -11,14 +11,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
+# 复制所有项目文件
+COPY . .
+
 # 创建并激活虚拟环境，然后安装依赖
-COPY requirements.txt .
-RUN python -m venv myenv && \
+RUN rm -rf app/models/ppocrv6_small && \
+    rm -rf app/models/ppocrv6_tiny && \
+    python -m venv myenv && \
     . myenv/bin/activate && \
     pip install --no-cache-dir -r requirements.txt
 
-# 复制所有项目文件
-COPY . .
+# 删除app/models/ppocrv6_small和删除app/models/ppocrv6_tiny
+RUN rm -rf app/models/ppocrv6_small && \
+    rm -rf app/models/ppocrv6_tiny
 
 # 暴露端口
 EXPOSE 5080

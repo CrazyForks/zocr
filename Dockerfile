@@ -14,12 +14,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # 复制所有项目文件
 COPY . .
 # 创建并激活虚拟环境，然后安装依赖
-RUN python -m venv myenv && \
+RUN rm -rf app/models/ppocrv6_medium && \
+    python -m venv myenv && \
     . myenv/bin/activate && \
     pip install --no-cache-dir -r requirements.txt
-
-# 删除app/models/ppocrv6_medium文件夹，以节省体积
-RUN rm -rf app/models/ppocrv6_medium
 
 # 暴露端口
 EXPOSE 5080
