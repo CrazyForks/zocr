@@ -34,7 +34,7 @@ services:
 
 可选环境变量：
 - `ZOCR_WORKERS`: uvicorn工作进程数，默认1
-- `ZOCR_MODEL_VERSION`: OCR模型版本（tiny/small），默认small
+- `ZOCR_MODEL_VERSION`: OCR模型版本（tiny/small/medium），默认small
 - `ZOCR_MAX_FILE_SIZE`: 最大文件大小(bytes)，默认10485760
 
 启动服务：
@@ -49,6 +49,9 @@ docker compose up -d
 环境要求：Python >= 3.11
 
 ```bash
+# 复制环境配置
+cp .env.example .env
+
 # 安装依赖
 pip install -r requirements.txt
 
@@ -64,7 +67,7 @@ bash run.sh dev
 |--------|------|--------|
 | ZOCR_TOKEN | 认证密钥 | 空（不认证） |
 | ZOCR_WORKERS | uvicorn工作进程数 | 1 |
-| ZOCR_MODEL_VERSION | OCR模型版本（tiny/small） | small |
+| ZOCR_MODEL_VERSION | OCR模型版本（tiny/small/medium） | small |
 | ZOCR_MAX_FILE_SIZE | 最大文件大小(bytes) | 10485760 (10MB) |
 
 ## API接口

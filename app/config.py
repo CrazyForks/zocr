@@ -11,7 +11,7 @@ ALLOWED_EXTENSIONS = {"jpg", "jpeg", "png", "bmp", "webp"}
 # 最大文件大小 (默认10MB)
 MAX_FILE_SIZE = int(os.getenv("ZOCR_MAX_FILE_SIZE", 10 * 1024 * 1024))
 
-# OCR模型版本 (默认small，可选tiny/small)
+# OCR模型版本 (默认small，可选tiny/small/medium)
 OCR_MODEL_VERSION = os.getenv("ZOCR_MODEL_VERSION", "small")
 
 # 模型目录

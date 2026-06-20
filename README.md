@@ -34,7 +34,7 @@ services:
 
 Optional environment variables:
 - `ZOCR_WORKERS`: Number of uvicorn worker processes, default 1
-- `ZOCR_MODEL_VERSION`: OCR model version (tiny/small), default small
+- `ZOCR_MODEL_VERSION`: OCR model version (tiny/small/medium), default small
 - `ZOCR_MAX_FILE_SIZE`: Maximum file size (bytes), default 10485760
 
 Start the service:
@@ -49,6 +49,9 @@ docker compose up -d
 Environment requirements: Python >= 3.11
 
 ```bash
+# Copy environment configuration
+cp .env.example .env
+
 # Install dependencies
 pip install -r requirements.txt
 
@@ -64,7 +67,7 @@ Configure via environment variables. If ZOCR_TOKEN is empty, authentication is s
 |----------|-------------|---------|
 | ZOCR_TOKEN | Authentication key | Empty (no auth) |
 | ZOCR_WORKERS | Number of uvicorn worker processes | 1 |
-| ZOCR_MODEL_VERSION | OCR model version (tiny/small) | small |
+| ZOCR_MODEL_VERSION | OCR model version (tiny/small/medium) | small |
 | ZOCR_MAX_FILE_SIZE | Maximum file size (bytes) | 10485760 (10MB) |
 
 ## API Endpoints
