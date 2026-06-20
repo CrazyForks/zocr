@@ -3,4 +3,9 @@ myenv
 .env
 *.pyc
 __pycache__
-*.onnx
+app/models/ppocrv6_tiny/ppocrv6_tiny_det.onnx
+app/models/ppocrv6_tiny/ppocrv6_tiny_rec.onnx
+app/models/ppocrv6_small/ppocrv6_small_det.onnx
+app/models/ppocrv6_small/ppocrv6_small_rec.onnx
+app/models/ppocrv6_medium/ppocrv6_medium_det.onnx
+app/models/ppocrv6_medium/ppocrv6_medium_rec.onnx
